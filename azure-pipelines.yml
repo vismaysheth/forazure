@@ -21,7 +21,7 @@ steps:
       az webapp deployment zip --resource-group $(AZURE_RESOURCE_GROUP) --name $(AZURE_APP_NAME) --src $(Build.ArtifactStagingDirectory)/your-app.zip
     displayName: 'Deploy to Azure App Service'
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifact: 'drop'
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+      artifact: 'drop'
