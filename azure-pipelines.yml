@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest' # Use the default agent image
 
 steps:
 - task: NodeTool@0
