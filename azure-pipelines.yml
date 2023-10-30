@@ -1,8 +1,7 @@
 trigger:
   - main
 
-pool:
-  vmImage: 'windows-latest' # You can use 'ubuntu-latest' or 'macos-latest' depending on your needs
+pool: nodepool
 
 steps:
   - script: |
