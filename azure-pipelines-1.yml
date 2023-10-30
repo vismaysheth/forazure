@@ -1,0 +1,28 @@
+trigger:
+  - main
+
+pool:
+  name: azure
+
+steps:
+  - script: |
+      npm install
+      npm test
+    displayName: 'Build and Test'
+
+  - task: NodeTool@0
+    inputs:
+      versionSource: 'spec'
+      versionSpec: '6.x'
+    displayName: 'Install Node.js'
+
+  - script: |
+      npm install -g azure-cli
+      az login --service-principal -u $(AZURE_SP_CLIENTID) -p $(AZURE_SP_CLIENTSECRET) --tenant $(AZURE_SP_TENANTID)
+      az webapp deployment zip --resource-group $(AZURE_RESOURCE_GROUP) --name $(AZURE_APP_NAME) --src $(Build.ArtifactStagingDirectory)/your-app.zip
+    displayName: 'Deploy to Azure App Service'
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+      artifact: 'drop'
